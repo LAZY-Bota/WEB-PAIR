@@ -4,280 +4,137 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PAIR CODE</title>
-  <!-- Updated Font Awesome CDN to a more recent version -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
-    /* Global styles for a modern, clean look */
     body {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
-      background-color: #0A4A0A; /* Deeper green background */
-      background-image: linear-gradient(135deg, #0A4A0A 0%, #1E8449 100%); /* Subtle green gradient for depth */
-      font-family: 'Inter', sans-serif; /* Modern, clean font */
-      color: #fff; /* White text for contrast */
-      overflow: hidden; /* Prevent scrollbars if elements slightly exceed viewport */
-      position: relative; /* Needed for pseudo-element positioning */
-    }
-
-    /* Background Animation 1: Moving Gradient (Green Shades) */
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, rgba(30, 130, 76, 0.08) 0%, rgba(30, 130, 76, 0) 50%, rgba(30, 130, 76, 0.08) 100%); /* Green gradient with transparency */
-      background-size: 200% 200%; /* Larger background to allow movement */
-      animation: moveGradient 15s linear infinite alternate; /* Animation properties */
-      z-index: -1; /* Place behind content */
-    }
-
-    @keyframes moveGradient {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 100% 100%; }
-    }
-
-    /* Background Animation 2: Floating Circles (Green Shades) */
-    body::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 20% 80%, rgba(46, 204, 113, 0.05) 0%, transparent 50%), /* Lighter green circle */
-                  radial-gradient(circle at 80% 20%, rgba(39, 174, 96, 0.05) 0%, transparent 50%); /* Darker green circle */
-      background-size: 150% 150%;
-      animation: floatCircles 20s ease-in-out infinite alternate;
-      z-index: -2; /* Place even further behind content and first animation */
-    }
-
-    @keyframes floatCircles {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 100% 100%; }
+      background-color: #141414;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+      color: #fff; /* Set the text color to white */
     }
 
     .container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px; /* Spacing between elements */
-      z-index: 1; /* Ensure container is above the animated background */
     }
 
-    /* Glassmorphism box styling */
     .box {
-      width: 320px; /* Slightly wider box */
-      height: 350px; /* Slightly taller box */
-      padding: 30px; /* Increased padding */
+      width: 300px;
+      height: 330px;
+      padding: 20px;
       position: relative;
       text-align: center;
-      background-color: rgba(255, 255, 255, 0.1); /* Very light transparent background for glass effect */
-      border-radius: 20px; /* More rounded corners */
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Enhanced shadow for depth */
-      backdrop-filter: blur(15px); /* Increased blur for stronger glass effect */
-      -webkit-backdrop-filter: blur(15px); /* Safari support */
-      border: 1px solid rgba(255, 255, 255, 0.18); /* Subtle white border */
-      transition: transform 0.3s ease-in-out; /* Smooth transition for hover effects */
+      background-color: #a20000; /* Update background color */
+      border-radius: 10px;
+      transform: perspective(1000px) rotateY(0deg);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+      position: relative;
     }
 
-    .box:hover {
-      transform: translateY(-5px) scale(1.01); /* Subtle lift and scale on hover */
+    #text {
+      color: #ffffff; /* Set the text color to black (#000) */
     }
 
-    /* Text within the box */
-    #text, .centered-text, h6 {
-      color: #ffffff;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Subtle text shadow for readability */
+    .input-container input {
+      color: #ffffff; /* Set the text color to black (#000) */
     }
 
     .centered-text {
-      font-size: 1.8rem; /* Larger heading */
-      margin-bottom: 15px;
+      color: #ffffff; /* Set the text color to black (#000) */
     }
 
-    h6 {
-      font-size: 0.9rem;
-      margin-bottom: 25px;
-      line-height: 1.4;
-    }
-
-    /* LAZY text and WhatsApp icon glass look and animation */
-    .lazy-text-container {
-      display: flex; /* Use flexbox to align icon and text */
-      align-items: center; /* Vertically center items */
-      justify-content: center; /* Horizontally center items */
-      margin-bottom: 15px;
-      gap: 10px; /* Space between icon and text */
-    }
-
-    .lazy-text-effect {
-      font-size: 3em;
-      font-weight: bold;
-      color: rgba(255, 255, 255, 0.8); /* Slightly transparent white for glass effect */
-      /* Unified text-shadow for glass look and animation */
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
-                   0 0 20px rgba(255, 255, 255, 0.3),
-                   0 0 30px rgba(39, 174, 96, 0.5); /* Green glow */
-      animation: pulseGlow 2s infinite alternate; /* Unified animation */
-      transition: all 0.3s ease-in-out;
-    }
-
-    .whatsapp-icon {
-      font-size: 1.5em; /* Adjust icon size relative to text */
-      color: #25d366; /* WhatsApp green color */
-      /* Unified text-shadow for glass look and animation */
-      text-shadow: 0 0 5px rgba(37, 211, 102, 0.7);
-      animation: pulseGlow 2s infinite alternate; /* Unified animation */
-    }
-
-    /* Unified animation for LAZY text and WhatsApp icons */
-    @keyframes pulseGlow {
-      0% {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
-                     0 0 20px rgba(255, 255, 255, 0.3),
-                     0 0 30px rgba(39, 174, 96, 0.5); /* Green glow */
-      }
-      100% {
-        text-shadow: 0 0 15px rgba(255, 255, 255, 0.7),
-                     0 0 25px rgba(255, 255, 255, 0.5),
-                     0 0 40px rgba(39, 174, 96, 0.7); /* Stronger green glow */
-      }
-    }
-
-    /* Input container styling */
     .input-container {
       display: flex;
-      background: rgba(255, 255, 255, 0.15); /* Slightly more opaque background for input container */
+      background: #ffffff; /* Update background color */
       border-radius: 1rem;
-      padding: 0.5rem; /* Increased padding */
-      gap: 0.5rem; /* Increased gap */
+      padding: 0.3rem;
+      gap: 0.3rem;
       max-width: 300px;
       width: 100%;
-      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Inner shadow for depth */
     }
 
     .input-container input {
       border-radius: 0.8rem 0 0 0.8rem;
-      background: rgba(0, 0, 0, 0.3); /* Transparent black for input field */
+      background: #000000; /* Update background color */
       width: 89%;
       flex-basis: 75%;
       padding: 1rem;
       border: none;
-      border-left: 2px solid #27AE60; /* Medium green border for input */
-      color: #ecf0f1; /* Light grey text color */
-      transition: all 0.3s ease-in-out; /* Smooth transitions */
-      font-size: 1rem;
+      border-left: 2px solid #075e54; /* Update border color */
+      color: #ecf0f1; /* Set text color to light grey */
+      transition: all 0.2s ease-in-out;
     }
 
     .input-container input:focus {
-      border-left: 2px solid #2ECC71; /* Lighter green on focus */
+      border-left: 2px solid #075e54;
       outline: none;
-      box-shadow: inset 0px 0px 15px rgba(46, 204, 113, 0.5); /* Glowing inner shadow on focus */
-      background: rgba(0, 0, 0, 0.4); /* Slightly darker on focus */
+      box-shadow: inset 13px 13px 10px #075e54, inset -13px -13px 10px #2c3e50;
     }
 
-    /* Button styling */
     .input-container button {
       flex-basis: 25%;
       padding: 1rem;
-      background: linear-gradient(135deg, #25d366 0%, #17a255 100%); /* Green gradient */
-      font-weight: 700; /* Slightly less bold */
-      letter-spacing: 0.05rem; /* Tighter letter spacing */
+      background: #25d366; /* Update background color */
+      font-weight: 900;
+      letter-spacing: 0.3rem;
       text-transform: uppercase;
       color: white;
       border: none;
       width: 100%;
       border-radius: 0 1rem 1rem 0;
-      transition: all 0.3s ease-in-out;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Button shadow */
+      transition: all 0.2s ease-in-out;
     }
 
     .input-container button:hover {
-      background: linear-gradient(135deg, #2980b9 0%, #1f618d 100%); /* Blue gradient on hover */
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Larger shadow on hover */
-      transform: translateY(-2px); /* Subtle lift on hover */
+      background: #2980b9; /* Update background color on hover */
     }
 
-    /* Styling for messages and generated code */
-    #pair {
-      margin-top: 20px;
+    #waiting-message {
+      color: #ffffff; /* Set text color to light grey */
+      margin-top: 10px;
     }
 
-    #pair a, #pair font {
-      color: #ffffff !important;
-      font-weight: bold;
-      font-size: 1.1rem; /* Slightly larger font for messages */
-    }
-    #pair span {
-      color: #ffffff !important;
-      font-weight: bold;
-      word-break: break-all; /* Ensure long codes wrap */
-    }
-
-    /* Copy button styling */
-    #copy {
-      display: inline-block; /* Allows padding and margin */
-      padding: 10px 15px;
-      background-color: rgba(255, 255, 255, 0.1); /* Light transparent background */
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    #copy:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-      transform: scale(1.02);
-    }
-
-    /* Loading spinner */
-    #loading-spinner {
-      display: none;
-      color: white;
-      margin-top: 20px;
-      font-size: 1.1rem;
-    }
-
-    .fa-spinner {
-      animation: spin 1.5s linear infinite; /* Faster spin */
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Responsive adjustments */
     @media (max-width: 500px) {
-      .box {
-        width: 90%; /* Fluid width on small screens */
-        height: auto; /* Auto height */
-        padding: 20px;
-      }
-
       .input-container {
         flex-direction: column;
-        padding: 0.3rem;
       }
 
       .input-container input {
         border-radius: 0.8rem;
-        border-left: none;
-        border-bottom: 2px solid #27AE60; /* Green border for input */
       }
 
       .input-container button {
         padding: 1rem;
         border-radius: 0.8rem;
-        border-top-left-radius: 0; /* Remove top-left radius for stacked button */
-        border-top-right-radius: 0; /* Remove top-right radius for stacked button */
       }
+    }
+
+    .centered-text {
+      text-align: center;
+    }
+
+    /* Add styles for the loading spinner */
+    #loading-spinner {
+      display: none;
+      color: white;
+      margin-top: 10px;
+    }
+
+    .fa-spinner {
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -286,22 +143,20 @@
     <div class="main">
       <div class="box" id="box">
         <div id="text">
-          <div class="lazy-text-container">
-            <i class="fa-brands fa-whatsapp whatsapp-icon"></i> <!-- WhatsApp icon on the left -->
-            <span class="lazy-text-effect">LAZY</span> <!-- LAZY text with glass effect and animation -->
-            <i class="fa-brands fa-whatsapp whatsapp-icon"></i> <!-- WhatsApp icon on the right -->
-          </div>
+          <i class="fa fa-user"></i>
           <p>
-            <h3 class="centered-text">Add Whatapp Bot</h3>
-            <h6>Enter your number with country code.</h6>
+            <h3 class="centered-text">Link Robin with phone number</h3>
+            <br>
+            <h6>🔢 Enter your number with country code. ROBIN WEB PAIR</h6>
             <div class="input-container">
-              <input placeholder="+94704xxxxxx" type="number" id="number" name="">
-              <button id="submit">Submit</button> <!-- Simplified button text -->
+              <input placeholder="+94704xxxxxx" type="number" id="number" placeholder="❗ Enter your phone number with country code, ROBIN WEB PAIR" name="">
+              <button id="submit">Submit ROBIN</button>
             </div>
-            <!-- Loading spinner -->
+            <!-- Add the loading spinner -->
             <div id="loading-spinner">
-              <i class="fas fa-spinner fa-spin"></i> Generating Code...
+              <i class="fas fa-spinner fa-spin"></i>
             </div>
+            <br>
             <br>
             <main id="pair"></main>
           </p>
@@ -309,139 +164,61 @@
       </div>
     </div>
   </div>
-
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
+  ></script>
   <script>
-    let a = document.getElementById("pair"); // Element to display messages/code
-    let b = document.getElementById("submit"); // Submit button
-    let c = document.getElementById("number"); // Input field for phone number
-    let box = document.getElementById("box"); // Main box element
+    
+    let a = document.getElementById("pair");
+    let b = document.getElementById("submit");
+    let c = document.getElementById("number");
+    let box = document.getElementById("box");
 
-    /**
-     * Copies the text from the generated code span to the clipboard.
-     * Provides visual feedback upon successful copy.
-     */
     async function Copy() {
-      // Get the actual code text from the span within the 'copy' element
-      let textToCopy = document.getElementById("copy").querySelector('span').innerText;
-      
-      // Use the modern Clipboard API if available, fallback to execCommand
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        try {
-          await navigator.clipboard.writeText(textToCopy);
-          let obj = document.getElementById("copy");
-          let originalHTML = obj.innerHTML;
-          obj.innerHTML = '<span style="color:#25d366;font-weight:bold">✔️ COPIED!</span>'; /* Green success message */
-          setTimeout(() => {
-            obj.innerHTML = originalHTML;
-          }, 1000);
-        } catch (err) {
-          console.error("Failed to copy text using Clipboard API: ", err);
-          fallbackCopy(textToCopy);
-        }
-      } else {
-        fallbackCopy(textToCopy);
-      }
+      let text = document.getElementById("copy").innerText;
+      let obj = document.getElementById("copy");
+      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+      obj.innerText = "✔️ COPIED";
+      obj.style = "color:blue;font-weight:bold";
+      obj.size = "5";
+      setTimeout(() => {
+        obj.innerText = text;
+        obj.style = "color:white;font-weight-bold";
+        obj.size = "5";
+      }, 500);
     }
 
-    /**
-     * Fallback function for copying text using document.execCommand.
-     * @param {string} text - The text to copy.
-     */
-    function fallbackCopy(text) {
-      let tempInput = document.createElement("textarea");
-      tempInput.value = text;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      
-      try {
-        document.execCommand("copy");
-        let obj = document.getElementById("copy");
-        let originalHTML = obj.innerHTML;
-        obj.innerHTML = '<span style="color:#25d366;font-weight:bold">✔️ COPIED!</span>'; /* Green success message */
-        setTimeout(() => {
-          obj.innerHTML = originalHTML;
-        }, 1000);
-      } catch (err) {
-        console.error("Failed to copy text using execCommand: ", err);
-        let obj = document.getElementById("copy");
-        obj.innerHTML = '<span style="color:#FF6347;font-weight:bold">❌ Copy failed!</span>'; /* Red error message */
-        setTimeout(() => {
-          obj.innerHTML = originalHTML;
-        }, 1500);
-      } finally {
-        document.body.removeChild(tempInput);
-      }
-    }
-
-    // Event listener for the submit button
     b.addEventListener("click", async (e) => {
-      e.preventDefault(); // Prevent default form submission behavior
-
-      // Input validation
+      e.preventDefault();
       if (!c.value) {
-        a.innerHTML = '<span style="color:#FF6347;font-weight:bold">❗Enter your WhatsApp number with country code.</span>'; /* Red error message */
-        return;
-      } else if (c.value.replace(/[^0-9]/g, "").length < 10) {
-        a.innerHTML = '<span style="color:#FF6347;font-weight:bold">❗Invalid number format. Please try again.</span>'; /* Red error message */
-        return;
-      }
-
-      // Sanitize and format the phone number
-      const cleanNumber = c.value.replace(/[^0-9]/g, "");
-      let formattedNumber = "";
-      let tempNum = "";
-      for (let i = 0; i < cleanNumber.length; i++) {
-        tempNum += cleanNumber[i];
-        if (i === 2 || i === 7) {
-          formattedNumber += tempNum + " ";
-          tempNum = "";
-        }
-      }
-      formattedNumber += tempNum;
-
-      c.type = "text";
-      c.value = "+" + formattedNumber;
-      c.style.color = "white";
-      c.style.fontSize = "20px";
-
-      // Show the loading spinner and clear previous messages
-      document.getElementById("loading-spinner").style.display = "block";
-      a.innerHTML = '';
-
-      try {
-        // Prepare chat history for Gemini API call
-        let chatHistory = [];
-        const prompt = `Generate a unique 8-character alphanumeric pairing code for the phone number: ${cleanNumber}. The code should be random and include both uppercase letters and numbers. Only return the 8-character code, no other text or explanation.`;
-        chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-
-        // Construct payload for Gemini API
-        const payload = { contents: chatHistory };
-        const apiKey = ""; // This will be automatically provided by the Canvas environment
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-        // Make the fetch call to Gemini API
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+        a.innerHTML = '<a style="color:black;font-weight:bold">❗Enter your whatsapp number with country code.</a><br><br>';
+      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
+        a.innerHTML = '<a style="color:black;font-weight:bold">❗Invalid number format. Please try again.</a><br><br>';
+      } else {
+        const bc = c.value.replace(/[^0-9]/g, "");
+        let bb = "";
+        let bbc = "";
+        const cc = bc.split('');
+        cc.map(a => {
+          bbc += a;
+          if (bbc.length == 3) {
+            bb += " " + a;
+          } else if (bbc.length == 8) {
+            bb += " " + a;
+          } else {
+            bb += a;
+          }
         });
-
-        const result = await response.json();
-
-        let code = "❗ Service Unavailable";
-        if (result.candidates && result.candidates.length > 0 &&
-            result.candidates[0].content && result.candidates[0].content.parts &&
-            result.candidates[0].content.parts.length > 0) {
-          code = result.candidates[0].content.parts[0].text.trim();
-        }
-
-        // Update the innerHTML with the generated code, making it clickable for copying
-        a.innerHTML = `<font id="copy" onclick="Copy()" style="color:white;font-weight:bold; cursor: pointer;">CODE: <span style="color:white;font-weight:bold">${code}</span></font>`;
-
-      } catch (error) {
-        console.error("Error fetching pairing code:", error);
-        a.innerHTML = '<span style="color:#FF6347;font-weight:bold">❗Failed to generate code. Please try again later.</span>'; /* Red error message */
-      } finally {
+        c.type = "text";
+        c.value = "+" + bb;
+        c.style = "color:white;font-size:20px";
+        // Show the loading spinner
+        document.getElementById("loading-spinner").style.display = "block";
+        a.innerHTML = ''; // Clear the previous content
+        let { data } = await axios(`/code?number=${bc}`);
+        let code = data.code || "❗ Service Unavailable";
+        a.innerHTML = '<font id="copy" onclick="Copy()" style="color:blue;font-weight:bold" size="5">CODE: <span style="color:black;font-weight:bold">' + code + '</span></font><br><br><br>';
+        // Hide the loading spinner when the process is complete
         document.getElementById("loading-spinner").style.display = "none";
       }
     });
