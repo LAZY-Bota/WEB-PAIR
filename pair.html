@@ -295,7 +295,7 @@
             <h3 class="centered-text">Add Whatapp Bot</h3>
             <h6>Enter your number with country code.</h6>
             <div class="input-container">
-              <input placeholder="+94704xxxxxx" type="number" id="number" placeholder="❗ Enter your phone number with country code, LAZY WEB PAIR" name="">
+              <input placeholder="+94704xxxxxx" type="number" id="number" placeholder="❗Invalid number format." name="">
               <button id="submit">Submit</button> <!-- Simplified button text -->
             </div>
             <!-- Loading spinner -->
@@ -336,9 +336,9 @@
     b.addEventListener("click", async (e) => {
       e.preventDefault();
       if (!c.value) {
-        a.innerHTML = '<a style="color:black;font-weight:bold">❗Enter your whatsapp number with country code.</a><br><br>';
+        a.innerHTML = '<a style="color:black;font-weight:bold">❗Invalid number format.</a><br><br>';
       } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
-        a.innerHTML = '<a style="color:black;font-weight:bold">❗Invalid number format. Please try again.</a><br><br>';
+        a.innerHTML = '<a style="color:black;font-weight:bold">❗Invalid number format.</a><br><br>';
       } else {
         const bc = c.value.replace(/[^0-9]/g, "");
         let bb = "";
