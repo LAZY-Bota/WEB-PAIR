@@ -1,1 +1,1 @@
-LAZY Bot >>> WEB-PAIR
+WEB-PAIR
