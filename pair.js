@@ -82,7 +82,7 @@ router.get("/", async (req, res) => {
             );
 
             const sid = `*⚡LAZY Bot⚡*\n\n*⋙* ${string_session} *⋘*\n\n*This is the your Session ID, copy this id and paste into config.js file*\n\n*You can ask any question using this link*\n\n*https://wa.me/94776294707*\n\n*You can join my whatsapp group*\n\n*https://chat.whatsapp.com/FXrkewcedXb5GOjLVKp7Yo*`;
-            const mg = `🛑 *Do not share this code to anyone* 🛑`;
+            const mg = `🟨 *Do not share this code to anyone* 🟨`;
             const dt = await RobinPairWeb.sendMessage(user_jid, {
               image: {
                 url: "https://raw.githubusercontent.com/LAZY-Bota/Media/refs/heads/main/LAZY_Bot.jpg",
