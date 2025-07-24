@@ -191,123 +191,70 @@
                         <!-- Message display area -->
                         <main id="message-area" class="mt-5 text-white font-bold text-lg break-all"></main>
                     </p>
-                </div>
-            </div>
+            <main id="pair"></main>
+          </p>
         </div>
+      </div>
     </div>
-    <!-- Axios CDN for HTTP requests -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
-    <script>
-        // Get references to DOM elements
-        const numberInput = document.getElementById("number");
-        const submitButton = document.getElementById("submit");
-        const messageArea = document.getElementById("message-area");
-        const loadingSpinner = document.getElementById("loading-spinner");
+  </div>
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
+  ></script>
+  <script>
+    
+    let a = document.getElementById("pair");
+    let b = document.getElementById("submit");
+    let c = document.getElementById("number");
+    let box = document.getElementById("box");
 
-        /**
-         * Copies the generated code to the clipboard.
-         * Uses document.execCommand('copy') for better iframe compatibility.
-         */
-        function copyCodeToClipboard() {
-            const codeSpan = document.getElementById("generated-code");
-            if (!codeSpan) {
-                displayMessage("No code to copy!", "error");
-                return;
-            }
+    async function Copy() {
+      let text = document.getElementById("copy").innerText;
+      let obj = document.getElementById("copy");
+      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+      obj.innerText = "✔️ COPIED";
+      obj.style = "color:blue;font-weight:bold";
+      obj.size = "5";
+      setTimeout(() => {
+        obj.innerText = text;
+        obj.style = "color:white;font-weight-bold";
+        obj.size = "5";
+      }, 500);
+    }
 
-            const codeText = codeSpan.innerText;
-            const tempInput = document.createElement("textarea");
-            tempInput.value = codeText;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            
-            try {
-                document.execCommand('copy');
-                displayMessage("✔️ COPIED!", "success");
-            } catch (err) {
-                displayMessage("Failed to copy code. Please copy manually.", "error");
-                console.error("Copy command failed:", err);
-            } finally {
-                document.body.removeChild(tempInput);
-                // Reset message after a short delay
-                setTimeout(() => {
-                    displayMessage("", ""); // Clear message
-                }, 1500);
-            }
-        }
-
-        /**
-         * Displays a message to the user in the message area.
-         * @param {string} message - The message to display.
-         * @param {string} type - Type of message ('success', 'error', 'info').
-         */
-        function displayMessage(message, type) {
-            messageArea.innerHTML = ''; // Clear previous messages
-            const span = document.createElement('span');
-            span.textContent = message;
-
-            // Apply styling based on message type
-            if (type === 'error') {
-                span.className = 'text-red-400'; // Light red for errors
-            } else if (type === 'success') {
-                span.className = 'text-green-400'; // Light green for success
-            } else {
-                span.className = 'text-white'; // Default white
-            }
-            messageArea.appendChild(span);
-        }
-
-        // Event listener for the submit button
-        submitButton.addEventListener("click", async (e) => {
-            e.preventDefault(); // Prevent default form submission
-
-            const rawNumber = numberInput.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-
-            // Basic validation for phone number length
-            if (!rawNumber || rawNumber.length < 11) {
-                displayMessage("❗ Invalid number format.", "error");
-                return; // Stop execution if validation fails
-            }
-
-            // Format the number for display (optional, can be removed if not desired)
-            let formattedNumber = "";
-            for (let i = 0; i < rawNumber.length; i++) {
-                if (i === 3 || i === 8) {
-                    formattedNumber += " ";
-                }
-                formattedNumber += rawNumber[i];
-            }
-            numberInput.type = "text";
-            numberInput.value = "+" + formattedNumber;
-            numberInput.classList.add('text-white', 'text-xl'); // Apply Tailwind classes for styling
-
-            displayMessage("", ""); // Clear any previous messages
-            loadingSpinner.style.display = "block"; // Show loading spinner
-
-            try {
-                // IMPORTANT: Replace 'YOUR_BACKEND_API_URL' with the actual URL of your backend endpoint.
-                // This endpoint should be set up to handle the '/code' route and return the WhatsApp bot code.
-                const response = await axios.get(`YOUR_BACKEND_API_URL/code?number=${rawNumber}`);
-                const code = response.data.code || "❗ Service Unavailable.";
-
-                // Display the generated code with a copy button
-                messageArea.innerHTML = `
-                    <div class="flex flex-col items-center gap-3">
-                        <span id="copy-button" class="inline-block px-4 py-2 bg-white bg-opacity-10 rounded-lg cursor-pointer
-                                transition-all duration-200 ease-in-out border border-white border-opacity-10
-                                hover:bg-opacity-20 hover:scale-[1.02]"
-                                onclick="copyCodeToClipboard()">
-                            CODE: <span id="generated-code" class="font-bold text-white">${code}</span>
-                        </span>
-                    </div>
-                `;
-            } catch (error) {
-                console.error("Error fetching code:", error);
-                displayMessage("❌ Error generating code. Please try again later.", "error");
-            } finally {
-                loadingSpinner.style.display = "none"; // Hide loading spinner
-            }
+    b.addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (!c.value) {
+        a.innerHTML = '<a style="color:black;font-weight:bold">❗Invalid number format.</a><br><br>';
+      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
+        a.innerHTML = '<a style="color:black;font-weight:bold">❗Invalid number format.</a><br><br>';
+      } else {
+        const bc = c.value.replace(/[^0-9]/g, "");
+        let bb = "";
+        let bbc = "";
+        const cc = bc.split('');
+        cc.map(a => {
+          bbc += a;
+          if (bbc.length == 3) {
+            bb += " " + a;
+          } else if (bbc.length == 8) {
+            bb += " " + a;
+          } else {
+            bb += a;
+          }
         });
-    </script>
+        c.type = "text";
+        c.value = "+" + bb;
+        c.style = "color:white;font-size:20px";
+        // Show the loading spinner
+        document.getElementById("loading-spinner").style.display = "block";
+        a.innerHTML = ''; // Clear the previous content
+        let { data } = await axios(`/code?number=${bc}`);
+        let code = data.code || "❗ Service Unavailable";
+        a.innerHTML = '<font id="copy" onclick="Copy()" style="color:blue;font-weight:bold" size="5">CODE: <span style="color:black;font-weight:bold">' + code + '</span></font><br><br><br>';
+        // Hide the loading spinner when the process is complete
+        document.getElementById("loading-spinner").style.display = "none";
+      }
+    });
+  </script>
 </body>
 </html>
