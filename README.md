@@ -1,3 +1,3 @@
-  ⚡⚡⚡⚡LAZY Bot >>> WEB-PAIR⚡⚡⚡⚡
+⚡⚡LAZY⚡⚡ >>> ⚡⚡WEB-PAIR⚡⚡
 =
-![](https://raw.githubusercontent.com/LAZY-Bota/Media/refs/heads/main/LAZY_Bot%20_WEB-PAIR.jpg)
+![](https://raw.githubusercontent.com/LAZY-Bota/Media/refs/heads/main/LAZY_WEB-PAIR.jpg)
