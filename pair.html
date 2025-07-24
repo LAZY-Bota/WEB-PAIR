@@ -1,372 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PAIR CODE</title>
-  <!-- Updated Font Awesome CDN to a more recent version -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <style>
-    /* Global styles for a modern, clean look */
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #0A4A0A; /* Deeper green background */
-      background-image: linear-gradient(135deg, #0A4A0A 0%, #1E8449 100%); /* Subtle green gradient for depth */
-      font-family: 'Inter', sans-serif; /* Modern, clean font */
-      color: #fff; /* White text for contrast */
-      overflow: hidden; /* Prevent scrollbars if elements slightly exceed viewport */
-      position: relative; /* Needed for pseudo-element positioning */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAIR CODE</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        /* Custom CSS for complex animations and pseudo-elements not fully supported by Tailwind */
+        body {
+            font-family: 'Inter', sans-serif; /* Modern, clean font */
+            overflow: hidden; /* Prevent scrollbars if elements slightly exceed viewport */
+            position: relative; /* Needed for pseudo-element positioning */
+        }
 
-    /* Background Animation 1: Moving Gradient (Green Shades) */
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, rgba(30, 130, 76, 0.08) 0%, rgba(30, 130, 76, 0) 50%, rgba(30, 130, 76, 0.08) 100%); /* Green gradient with transparency */
-      background-size: 200% 200%; /* Larger background to allow movement */
-      animation: moveGradient 15s linear infinite alternate; /* Animation properties */
-      z-index: -1; /* Place behind content */
-    }
+        /* Background Animation 1: Moving Gradient (Dark Yellow Shades) */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(153, 102, 0, 0.08) 0%, rgba(153, 102, 0, 0) 50%, rgba(153, 102, 0, 0.08) 100%); /* Dark Yellow gradient with transparency */
+            background-size: 200% 200%; /* Larger background to allow movement */
+            animation: moveGradient 15s linear infinite alternate; /* Animation properties */
+            z-index: -2; /* Place behind thundering overlay */
+        }
 
-    @keyframes moveGradient {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 100% 100%; }
-    }
+        @keyframes moveGradient {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
 
-    /* Background Animation 2: Floating Circles (Green Shades) */
-    body::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 20% 80%, rgba(46, 204, 113, 0.05) 0%, transparent 50%), /* Lighter green circle */
-                  radial-gradient(circle at 80% 20%, rgba(39, 174, 96, 0.05) 0%, transparent 50%); /* Darker green circle */
-      background-size: 150% 150%;
-      animation: floatCircles 20s ease-in-out infinite alternate;
-      z-index: -2; /* Place even further behind content and first animation */
-    }
+        /* Background Animation 2: Floating Circles (Dark Yellow Shades) */
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(179, 119, 0, 0.05) 0%, transparent 50%), /* Lighter dark yellow circle */
+                        radial-gradient(circle at 80% 20%, rgba(166, 111, 0, 0.05) 0%, transparent 50%); /* Darker dark yellow circle */
+            background-size: 150% 150%;
+            animation: floatCircles 20s ease-in-out infinite alternate;
+            z-index: -3; /* Place furthest behind */
+        }
 
-    @keyframes floatCircles {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 100% 100%; }
-    }
+        @keyframes floatCircles {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px; /* Spacing between elements */
-      z-index: 1; /* Ensure container is above the animated background */
-    }
+        /* Unified animation for LAZY text and icons */
+        @keyframes pulseGlow {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+                            0 0 20px rgba(255, 255, 255, 0.3),
+                            0 0 30px rgba(153, 102, 0, 0.5); /* Dark Yellow glow */
+            }
+            100% {
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.7),
+                            0 0 25px rgba(255, 255, 255, 0.5),
+                            0 0 40px rgba(153, 102, 0, 0.7); /* Stronger dark yellow glow */
+            }
+        }
 
-    /* Glassmorphism box styling */
-    .box {
-      width: 320px; /* Slightly wider box */
-      height: 350px; /* Slightly taller box */
-      padding: 30px; /* Increased padding */
-      position: relative;
-      text-align: center;
-      background-color: rgba(255, 255, 255, 0.1); /* Very light transparent background for glass effect */
-      border-radius: 20px; /* More rounded corners */
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Enhanced shadow for depth */
-      backdrop-filter: blur(15px); /* Increased blur for stronger glass effect */
-      -webkit-backdrop-filter: blur(15px); /* Safari support */
-      border: 1px solid rgba(255, 255, 255, 0.18); /* Subtle white border */
-      transition: transform 0.3s ease-in-out; /* Smooth transition for hover effects */
-    }
+        /* Loading spinner animation */
+        .fa-spinner {
+            animation: spin 1.5s linear infinite; /* Faster spin */
+        }
 
-    .box:hover {
-      transform: translateY(-5px) scale(1.01); /* Subtle lift and scale on hover */
-    }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-    /* Text within the box */
-    #text, .centered-text, h6 {
-      color: #ffffff;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Subtle text shadow for readability */
-    }
+        /* Thundering Overlay Animation */
+        .thundering-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0); /* Start transparent */
+            z-index: -1; /* Above other backgrounds, below content */
+            animation: thunderFlash 5s infinite; /* Faster animation duration for more frequent flashes */
+        }
 
-    .centered-text {
-      font-size: 1.8rem; /* Larger heading */
-      margin-bottom: 15px;
-    }
+        @keyframes thunderFlash {
+            0%, 100% { background-color: rgba(255, 255, 255, 0); } /* Fully transparent */
+            3% { background-color: rgba(255, 255, 255, 0.1); } /* More intense flash */
+            3.1% { background-color: rgba(255, 255, 255, 0); }
+            8% { background-color: rgba(255, 255, 255, 0.07); } /* Another intense flash */
+            8.1% { background-color: rgba(255, 255, 255, 0); }
+            15% { background-color: rgba(255, 255, 255, 0); }
+            15.5% { background-color: rgba(255, 255, 255, 0.12); } /* Stronger flash */
+            15.6% { background-color: rgba(255, 255, 255, 0); }
+            25% { background-color: rgba(255, 255, 255, 0); }
+            25.2% { background-color: rgba(255, 255, 255, 0.09); }
+            25.3% { background-color: rgba(255, 255, 255, 0); }
+            /* More random and intense flashes for a natural look */
+            35% { background-color: rgba(255, 255, 255, 0); }
+            35.1% { background-color: rgba(255, 255, 255, 0.1); }
+            35.2% { background-color: rgba(255, 255, 255, 0); }
+            45% { background-color: rgba(255, 255, 255, 0); }
+            45.3% { background-color: rgba(255, 255, 255, 0.15); } /* Very strong flash */
+            45.4% { background-color: rgba(255, 255, 255, 0); }
+            60% { background-color: rgba(255, 255, 255, 0); }
+            60.1% { background-color: rgba(255, 255, 255, 0.1); }
+            60.2% { background-color: rgba(255, 255, 255, 0); }
+            70% { background-color: rgba(255, 255, 255, 0); }
+            70.5% { background-color: rgba(255, 255, 255, 0.13); }
+            70.6% { background-color: rgba(255, 255, 255, 0); }
+            85% { background-color: rgba(255, 255, 255, 0); }
+            85.1% { background-color: rgba(255, 255, 255, 0.08); }
+            85.2% { background-color: rgba(255, 255, 255, 0); }
+        }
 
-    h6 {
-      font-size: 0.9rem;
-      margin-bottom: 25px;
-      line-height: 1.4;
-    }
+        /* Sparkle Animation */
+        .thundering-overlay::before {
+            content: '';
+            position: absolute;
+            width: 5px; /* Size of the sparkle */
+            height: 5px;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkleTwinkle 8s infinite; /* Animation duration and loop */
+            z-index: 1; /* Ensure sparkle is visible */
+        }
 
-    /* LAZY text and WhatsApp icon glass look and animation */
-    .lazy-text-container {
-      display: flex; /* Use flexbox to align icon and text */
-      align-items: center; /* Vertically center items */
-      justify-content: center; /* Horizontally center items */
-      margin-bottom: 15px;
-      gap: 10px; /* Space between icon and text */
-    }
-
-    .lazy-text-effect {
-      font-size: 3em;
-      font-weight: bold;
-      color: rgba(255, 255, 255, 0.8); /* Slightly transparent white for glass effect */
-      /* Unified text-shadow for glass look and animation */
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
-                   0 0 20px rgba(255, 255, 255, 0.3),
-                   0 0 30px rgba(39, 174, 96, 0.5); /* Green glow */
-      animation: pulseGlow 2s infinite alternate; /* Unified animation */
-      transition: all 0.3s ease-in-out;
-    }
-
-    .whatsapp-icon {
-      font-size: 1.5em; /* Adjust icon size relative to text */
-      color: #25d366; /* WhatsApp green color */
-      /* Unified text-shadow for glass look and animation */
-      text-shadow: 0 0 5px rgba(37, 211, 102, 0.7);
-      animation: pulseGlow 2s infinite alternate; /* Unified animation */
-    }
-
-    /* Unified animation for LAZY text and WhatsApp icons */
-    @keyframes pulseGlow {
-      0% {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
-                     0 0 20px rgba(255, 255, 255, 0.3),
-                     0 0 30px rgba(39, 174, 96, 0.5); /* Green glow */
-      }
-      100% {
-        text-shadow: 0 0 15px rgba(255, 255, 255, 0.7),
-                     0 0 25px rgba(255, 255, 255, 0.5),
-                     0 0 40px rgba(39, 174, 96, 0.7); /* Stronger green glow */
-      }
-    }
-
-    /* Input container styling */
-    .input-container {
-      display: flex;
-      background: rgba(255, 255, 255, 0.15); /* Slightly more opaque background for input container */
-      border-radius: 1rem;
-      padding: 0.5rem; /* Increased padding */
-      gap: 0.5rem; /* Increased gap */
-      max-width: 300px;
-      width: 100%;
-      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Inner shadow for depth */
-    }
-
-    .input-container input {
-      border-radius: 0.8rem 0 0 0.8rem;
-      background: rgba(0, 0, 0, 0.3); /* Transparent black for input field */
-      width: 89%;
-      flex-basis: 75%;
-      padding: 1rem;
-      border: none;
-      border-left: 2px solid #27AE60; /* Medium green border for input */
-      color: #ecf0f1; /* Light grey text color */
-      transition: all 0.3s ease-in-out; /* Smooth transitions */
-      font-size: 1rem;
-    }
-
-    .input-container input:focus {
-      border-left: 2px solid #2ECC71; /* Lighter green on focus */
-      outline: none;
-      box-shadow: inset 0px 0px 15px rgba(46, 204, 113, 0.5); /* Glowing inner shadow on focus */
-      background: rgba(0, 0, 0, 0.4); /* Slightly darker on focus */
-    }
-
-    /* Button styling */
-    .input-container button {
-      flex-basis: 25%;
-      padding: 1rem;
-      background: linear-gradient(135deg, #25d366 0%, #17a255 100%); /* Green gradient */
-      font-weight: 700; /* Slightly less bold */
-      letter-spacing: 0.05rem; /* Tighter letter spacing */
-      text-transform: uppercase;
-      color: white;
-      border: none;
-      width: 100%;
-      border-radius: 0 1rem 1rem 0;
-      transition: all 0.3s ease-in-out;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Button shadow */
-    }
-
-    .input-container button:hover {
-      background: linear-gradient(135deg, #2980b9 0%, #1f618d 100%); /* Blue gradient on hover */
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Larger shadow on hover */
-      transform: translateY(-2px); /* Subtle lift on hover */
-    }
-
-    /* Styling for messages and generated code */
-    #pair {
-      margin-top: 20px;
-    }
-
-    #pair a, #pair font {
-      color: #ffffff !important;
-      font-weight: bold;
-      font-size: 1.1rem; /* Slightly larger font for messages */
-    }
-    #pair span {
-      color: #ffffff !important;
-      font-weight: bold;
-      word-break: break-all; /* Ensure long codes wrap */
-    }
-
-    /* Copy button styling */
-    #copy {
-      display: inline-block; /* Allows padding and margin */
-      padding: 10px 15px;
-      background-color: rgba(255, 255, 255, 0.1); /* Light transparent background */
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    #copy:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-      transform: scale(1.02);
-    }
-
-    /* Loading spinner */
-    #loading-spinner {
-      display: none;
-      color: white;
-      margin-top: 20px;
-      font-size: 1.1rem;
-    }
-
-    .fa-spinner {
-      animation: spin 1.5s linear infinite; /* Faster spin */
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 500px) {
-      .box {
-        width: 90%; /* Fluid width on small screens */
-        height: auto; /* Auto height */
-        padding: 20px;
-      }
-
-      .input-container {
-        flex-direction: column;
-        padding: 0.3rem;
-      }
-
-      .input-container input {
-        border-radius: 0.8rem;
-        border-left: none;
-        border-bottom: 2px solid #27AE60; /* Green border for input */
-      }
-
-      .input-container button {
-        padding: 1rem;
-        border-radius: 0.8rem;
-        border-top-left-radius: 0; /* Remove top-left radius for stacked button */
-        border-top-right-radius: 0; /* Remove top-right radius for stacked button */
-      }
-    }
-  </style>
+        @keyframes sparkleTwinkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            10% { opacity: 0.7; transform: scale(1); top: 20%; left: 30%; }
+            25% { opacity: 0; transform: scale(0); }
+            30% { opacity: 0.6; transform: scale(0.8); top: 70%; left: 80%; }
+            40% { opacity: 0; transform: scale(0); }
+            55% { opacity: 0.8; transform: scale(1.2); top: 40%; left: 10%; }
+            65% { opacity: 0; transform: scale(0); }
+            70% { opacity: 0.5; transform: scale(0.7); top: 10%; left: 60%; }
+            85% { opacity: 0; transform: scale(0); }
+        }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <div class="main">
-      <div class="box" id="box">
-        <div id="text">
-          <div class="lazy-text-container">
-            <i class="fa-brands fa-whatsapp whatsapp-icon"></i> <!-- WhatsApp icon on the left -->
-            <span class="lazy-text-effect">LAZY</span> <!-- LAZY text with glass effect and animation -->
-            <i class="fa-brands fa-whatsapp whatsapp-icon"></i> <!-- WhatsApp icon on the right -->
-          </div>
-          <p>
-            <h3 class="centered-text">Add Whatapp Bot</h3>
-            <h6>Enter your number with country code.</h6>
-            <div class="input-container">
-              <input placeholder="+94704xxxxxx" type="number" id="number" placeholder="❗Invalid number format." name="">
-              <button id="submit">Submit</button> <!-- Simplified button text -->
+<body class="flex justify-center items-center h-screen m-0 bg-[#8B6B00] bg-gradient-to-br from-[#8B6B00] to-[#B8860B] text-white">
+    <!-- Thundering Overlay -->
+    <div class="thundering-overlay"></div>
+
+    <div class="container flex flex-col items-center gap-5 z-10">
+        <div class="main">
+            <!-- Glassmorphism box styling with Tailwind classes -->
+            <div id="box" class="box w-[320px] h-[350px] p-8 relative text-center bg-white bg-opacity-10 rounded-2xl shadow-lg
+                                backdrop-blur-md backdrop-filter border border-white border-opacity-10 transition-transform duration-300 ease-in-out
+                                hover:translate-y-[-5px] hover:scale-[1.01]
+                                sm:w-[90%] sm:h-auto sm:p-5">
+                <div id="text">
+                    <div class="lazy-text-container flex items-center justify-center mb-4 gap-2.5">
+                        <!-- Lightning bolt icon on the left (color changed to a dark yellow shade) -->
+                        <i class="fa-solid fa-bolt text-2xl text-[#B8860B] text-shadow-[0_0_5px_rgba(184,134,11,0.7)] animate-[pulseGlow_2s_infinite_alternate]"></i>
+                        <!-- LAZY text with glass effect and animation -->
+                        <span class="lazy-text-effect text-5xl font-bold text-white text-opacity-80
+                                    text-shadow-[0_0_10px_rgba(255,255,255,0.5),_0_0_20px_rgba(255,255,255,0.3),_0_0_30px_rgba(153,102,0,0.5)]
+                                    animate-[pulseGlow_2s_infinite_alternate] transition-all duration-300 ease-in-out">LAZY</span>
+                        <!-- Lightning bolt icon on the right (color changed to a dark yellow shade) -->
+                        <i class="fa-solid fa-bolt text-2xl text-[#B8860B] text-shadow-[0_0_5px_rgba(184,134,11,0.7)] animate-[pulseGlow_2s_infinite_alternate]"></i>
+                    </div>
+                    <p>
+                        <h3 class="text-white text-shadow-[0_1px_2px_rgba(0,0,0,0.3)] text-3xl mb-4">Add WhatsApp Bot</h3>
+                        <h6 class="text-white text-shadow-[0_1px_2px_rgba(0,0,0,0.3)] text-base mb-6 leading-tight">Enter your number with country code.</h6>
+                        <div class="input-container flex bg-white bg-opacity-15 rounded-2xl p-2 gap-2 max-w-xs w-full shadow-inner
+                                    sm:flex-col sm:p-1.5">
+                            <input placeholder="+94704xxxxxx" type="number" id="number" name=""
+                                class="rounded-xl bg-black bg-opacity-30 w-full flex-grow p-4 border-l-2 border-[#B8860B] text-[#ecf0f1] text-lg
+                                    transition-all duration-300 ease-in-out focus:border-[#DAA520] focus:outline-none focus:shadow-inner-[0px_0px_15px_rgba(153,102,0,0.5)] focus:bg-black focus:bg-opacity-40
+                                    sm:rounded-xl sm:border-l-0 sm:border-b-2">
+                            <button id="submit"
+                                class="flex-grow p-4 bg-gradient-to-br from-[#B8860B] to-[#8B6B00] font-bold tracking-wider uppercase text-white border-none
+                                    rounded-r-2xl cursor-pointer shadow-md transition-all duration-300 ease-in-out hover:bg-gradient-to-br hover:from-[#DAA520] hover:to-[#A0522D] hover:shadow-lg hover:translate-y-[-2px]
+                                    sm:p-4 sm:rounded-2xl sm:rounded-t-none">Submit</button>
+                        </div>
+                        <!-- Loading spinner -->
+                        <div id="loading-spinner" class="hidden text-white mt-5 text-lg">
+                            <i class="fas fa-spinner fa-spin mr-2"></i> Generating Code...
+                        </div>
+                        <br>
+                        <!-- Message display area -->
+                        <main id="message-area" class="mt-5 text-white font-bold text-lg break-all"></main>
+                    </p>
+                </div>
             </div>
-            <!-- Loading spinner -->
-            <div id="loading-spinner">
-              <i class="fas fa-spinner fa-spin"></i> Generating Code...
-            </div>
-            <br>
-            <main id="pair"></main>
-          </p>
         </div>
-      </div>
     </div>
-  </div>
-  <script
-  src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
-  ></script>
-  <script>
-    
-    let a = document.getElementById("pair");
-    let b = document.getElementById("submit");
-    let c = document.getElementById("number");
-    let box = document.getElementById("box");
+    <!-- Axios CDN for HTTP requests -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+    <script>
+        // Get references to DOM elements
+        const numberInput = document.getElementById("number");
+        const submitButton = document.getElementById("submit");
+        const messageArea = document.getElementById("message-area");
+        const loadingSpinner = document.getElementById("loading-spinner");
 
-    async function Copy() {
-      let text = document.getElementById("copy").innerText;
-      let obj = document.getElementById("copy");
-      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
-      obj.innerText = "✔️ COPIED";
-      obj.style = "color:blue;font-weight:bold";
-      obj.size = "5";
-      setTimeout(() => {
-        obj.innerText = text;
-        obj.style = "color:white;font-weight-bold";
-        obj.size = "5";
-      }, 500);
-    }
+        /**
+         * Copies the generated code to the clipboard.
+         * Uses document.execCommand('copy') for better iframe compatibility.
+         */
+        function copyCodeToClipboard() {
+            const codeSpan = document.getElementById("generated-code");
+            if (!codeSpan) {
+                displayMessage("No code to copy!", "error");
+                return;
+            }
 
-    b.addEventListener("click", async (e) => {
-      e.preventDefault();
-      if (!c.value) {
-        a.innerHTML = '<a style="color:black;font-weight:bold">❗Invalid number format.</a><br><br>';
-      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
-        a.innerHTML = '<a style="color:black;font-weight:bold">❗Invalid number format.</a><br><br>';
-      } else {
-        const bc = c.value.replace(/[^0-9]/g, "");
-        let bb = "";
-        let bbc = "";
-        const cc = bc.split('');
-        cc.map(a => {
-          bbc += a;
-          if (bbc.length == 3) {
-            bb += " " + a;
-          } else if (bbc.length == 8) {
-            bb += " " + a;
-          } else {
-            bb += a;
-          }
+            const codeText = codeSpan.innerText;
+            const tempInput = document.createElement("textarea");
+            tempInput.value = codeText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            
+            try {
+                document.execCommand('copy');
+                displayMessage("✔️ COPIED!", "success");
+            } catch (err) {
+                displayMessage("Failed to copy code. Please copy manually.", "error");
+                console.error("Copy command failed:", err);
+            } finally {
+                document.body.removeChild(tempInput);
+                // Reset message after a short delay
+                setTimeout(() => {
+                    displayMessage("", ""); // Clear message
+                }, 1500);
+            }
+        }
+
+        /**
+         * Displays a message to the user in the message area.
+         * @param {string} message - The message to display.
+         * @param {string} type - Type of message ('success', 'error', 'info').
+         */
+        function displayMessage(message, type) {
+            messageArea.innerHTML = ''; // Clear previous messages
+            const span = document.createElement('span');
+            span.textContent = message;
+
+            // Apply styling based on message type
+            if (type === 'error') {
+                span.className = 'text-red-400'; // Light red for errors
+            } else if (type === 'success') {
+                span.className = 'text-green-400'; // Light green for success
+            } else {
+                span.className = 'text-white'; // Default white
+            }
+            messageArea.appendChild(span);
+        }
+
+        // Event listener for the submit button
+        submitButton.addEventListener("click", async (e) => {
+            e.preventDefault(); // Prevent default form submission
+
+            const rawNumber = numberInput.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+
+            // Basic validation for phone number length
+            if (!rawNumber || rawNumber.length < 11) {
+                displayMessage("❗ Invalid number format.", "error");
+                return; // Stop execution if validation fails
+            }
+
+            // Format the number for display (optional, can be removed if not desired)
+            let formattedNumber = "";
+            for (let i = 0; i < rawNumber.length; i++) {
+                if (i === 3 || i === 8) {
+                    formattedNumber += " ";
+                }
+                formattedNumber += rawNumber[i];
+            }
+            numberInput.type = "text";
+            numberInput.value = "+" + formattedNumber;
+            numberInput.classList.add('text-white', 'text-xl'); // Apply Tailwind classes for styling
+
+            displayMessage("", ""); // Clear any previous messages
+            loadingSpinner.style.display = "block"; // Show loading spinner
+
+            try {
+                // IMPORTANT: Replace 'YOUR_BACKEND_API_URL' with the actual URL of your backend endpoint.
+                // This endpoint should be set up to handle the '/code' route and return the WhatsApp bot code.
+                const response = await axios.get(`YOUR_BACKEND_API_URL/code?number=${rawNumber}`);
+                const code = response.data.code || "❗ Service Unavailable.";
+
+                // Display the generated code with a copy button
+                messageArea.innerHTML = `
+                    <div class="flex flex-col items-center gap-3">
+                        <span id="copy-button" class="inline-block px-4 py-2 bg-white bg-opacity-10 rounded-lg cursor-pointer
+                                transition-all duration-200 ease-in-out border border-white border-opacity-10
+                                hover:bg-opacity-20 hover:scale-[1.02]"
+                                onclick="copyCodeToClipboard()">
+                            CODE: <span id="generated-code" class="font-bold text-white">${code}</span>
+                        </span>
+                    </div>
+                `;
+            } catch (error) {
+                console.error("Error fetching code:", error);
+                displayMessage("❌ Error generating code. Please try again later.", "error");
+            } finally {
+                loadingSpinner.style.display = "none"; // Hide loading spinner
+            }
         });
-        c.type = "text";
-        c.value = "+" + bb;
-        c.style = "color:white;font-size:20px";
-        // Show the loading spinner
-        document.getElementById("loading-spinner").style.display = "block";
-        a.innerHTML = ''; // Clear the previous content
-        let { data } = await axios(`/code?number=${bc}`);
-        let code = data.code || "❗ Service Unavailable";
-        a.innerHTML = '<font id="copy" onclick="Copy()" style="color:blue;font-weight:bold" size="5">CODE: <span style="color:black;font-weight:bold">' + code + '</span></font><br><br><br>';
-        // Hide the loading spinner when the process is complete
-        document.getElementById("loading-spinner").style.display = "none";
-      }
-    });
-  </script>
+    </script>
 </body>
 </html>
