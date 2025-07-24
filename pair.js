@@ -85,7 +85,7 @@ router.get("/", async (req, res) => {
             const mg = `🟨 *Do not share this code to anyone* 🟨`;
             const dt = await RobinPairWeb.sendMessage(user_jid, {
               image: {
-                url: "https://raw.githubusercontent.com/LAZY-Bota/Media/refs/heads/main/LAZY_Bot.jpg",
+                url: "https://raw.githubusercontent.com/LAZY-Bota/Media/refs/heads/main/LAZY.jpg",
               },
               caption: sid,
             });
